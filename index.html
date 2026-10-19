@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fokus</title>
+  </head>
+  <body class="page" data-mode="1">
+    <a href="#main-content" class="skip-link">
+      Pular para o conteúdo principal
+    </a>
+    <header>
+      <h1 class="logo">
+        <img src="/logo.png" alt="">
+      </h1>
+    </header>
+    <main id="main-content">
+      <section aria-label="Banner" class="banner">
+        <h2 class="banner__title"> <span class="banner__title--text">Otimize sua produtividade,</span><br><strong class="banner__title--highlight">mergulhe no que importa</strong></h2>
+        <img src="/mode-1.png" alt="">
+      </section>
+
+      <section aria-label="Timer" class="timer-card">
+        <div role="tablist" aria-label="Tipo de timer" class="timer-card__tabs">
+          <button data-mode="1" class="timer-card__tab timer-card__tab--active" role="tab" type="button" aria-selected="true">
+            Foco
+          </button>
+          <button data-mode="2" class="timer-card__tab" role="tab" type="button" aria-selected="false">
+            Descanso curto
+          </button>
+          <button data-mode="3" class="timer-card__tab" role="tab" type="button" aria-selected="false">
+            Descanso longo
+          </button>
+        </div>
+        <div class="timer-card__display">
+          <span class="timer-card__time" role="timer" aria-live="polite" aria-label="Tempo restante">
+            00:25
+          </span>
+        </div>
+        <label for="toggle-music" class="music-toggle">
+          <input type="checkbox" id="toggle-music" class="music-toggle__input"> Música
+        </label>
+        <form class="timer-card__form">
+          <button class="button">
+            <span class="icon icon--play" aria-hidden="true"></span>
+            Começar
+          </button>
+        </form>
+      </section>
+
+      <section aria-labelledby="task-board-heading" class="task-board">
+        <p class="current-task" aria-live="polite">
+          <span class="current-task__label">#Em andamento:</span>
+          <strong class="current-task__name">Nome da tarefa em andamento</strong>
+        </p>
+  
+        <div class="task-board__header">
+          <h2 id="task-board-heading" class="task-board__heading">Lista de tarefas:</h2>
+          <details class="task-menu">
+            <summary class="task-menu__trigger" aria-label="Opções da lista de tarefas">
+              <span class="icon icon--more icon--lg" aria-hidden="true"></span>
+            </summary>
+            <ul class="task-menu__list" role="menu">
+              <li class="task-menu__item" role="none">
+                <button type="button" class="task-menu__button" id="btn-clear-completed" role="menuitem">
+                  <span class="icon icon--check icon--md" aria-hidden="true"></span>
+                  Limpar tarefas concluídas
+                </button>
+              </li>
+              <li class="task-menu__item" role="none">
+                <button type="button" class="task-menu__button" id="btn-clear-all" role="menuitem">
+                  <span class="icon icon--delete icon--md" aria-hidden="true"></span>
+                  Limpar todas as tarefas
+                </button>
+              </li>
+            </ul>
+          </details>
+        </div>
+
+        <ul class="task-list">
+        </ul>
+  
+        <form class="task-form" hidden>
+          <label class="task-form__label" for="task-input">Adicionando tarefa</label>
+          <textarea class="task-form__textarea" id="task-input" name="task" required
+            placeholder="No que você está trabalhando?"></textarea>
+          <div class="task-form__footer">
+            <button type="button" class="task-form__button" hidden id="btn-delete">
+              <span class="icon icon--delete icon--sm" aria-hidden="true"></span>
+              Deletar
+            </button>
+            <span class="task-form__spacer"></span>
+            <button type="button" class="task-form__button" id="btn-cancel">
+              <span class="icon icon--close icon--sm" aria-hidden="true"></span>
+              Cancelar
+            </button>
+            <button type="submit" class="task-form__button task-form__button--confirm">
+              <span class="icon icon--save icon--sm" aria-hidden="true"></span>
+              Salvar
+            </button>
+          </div>
+        </form>
+  
+        <button type="button" class="add-task-button">
+          <span class="icon icon--add add-task-button__icon" aria-hidden="true"></span>
+          Adicionar nova tarefa
+        </button>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <p class="site-footer__text">Projeto fictício e sem fins comerciais. Imagens geradas por IA no Adobe Firefly. Desenvolvido por Alura.</p>
+    </footer>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
