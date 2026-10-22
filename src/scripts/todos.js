@@ -164,12 +164,19 @@ function renderTodoListItem(todo) {
 }
 
 function renderAll() {
+    console.group('todo.js')
+    console.time('render')
     localStorage.setItem('todos', JSON.stringify(todos))
     todosList.innerHTML = ''
     todos.forEach(todo => {
         const element = renderTodoListItem(todo)
         todosList.appendChild(element)
     })
+
+    console.table(todos)
+
+    console.timeEnd('render')
+    console.groupEnd()
 }
 
 renderAll()
