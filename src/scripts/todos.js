@@ -1,5 +1,15 @@
-let todosFromStorage = localStorage.getItem('todos')
-let todos = todosFromStorage ? JSON.parse(todosFromStorage) : []
+import { getTasks } from "./tasks-api"
+
+let todos = []
+
+getTasks()
+    .then(data => {
+        console.table(data)
+        todos = data
+        renderAll()
+    })
+
+
 const taskBoard = document.querySelector('.task-board')
 const form = document.querySelector('.task-form')
 const formLabel = document.querySelector('.task-form__label')
@@ -166,17 +176,12 @@ function renderTodoListItem(todo) {
 function renderAll() {
     console.group('todo.js')
     console.time('render')
-    localStorage.setItem('todos', JSON.stringify(todos))
     todosList.innerHTML = ''
     todos.forEach(todo => {
         const element = renderTodoListItem(todo)
         todosList.appendChild(element)
     })
 
-    console.table(todos)
-
     console.timeEnd('render')
     console.groupEnd()
 }
-
-renderAll()
