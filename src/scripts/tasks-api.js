@@ -20,3 +20,16 @@ export async function createTask(description) {
     return respose.json()
     
 }
+
+export async function uptadeTask(id, data) {
+    const respose = await fetch(`${API_URL}/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+
+    return respose.json()
+    
+}

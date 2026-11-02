@@ -1,4 +1,4 @@
-import { getTasks, createTask } from "./tasks-api"
+import { getTasks, createTask, uptadeTask } from "./tasks-api"
 
 let todos = []
 
@@ -62,16 +62,17 @@ function handleClearAll() {
 }
 
 function findTodoFromEvent(event) {
-    const todoId = Number(event.target.closest('[data-todo-id]')?.dataset.todoId)
+    const todoId = event.target.closest('[data-todo-id]')?.dataset.todoId
     return todos.find(t => t.id === todoId)
 }
 
-function handleToggleStatus(event) {
+async function handleToggleStatus(event) {
     const todo = findTodoFromEvent(event)
     if (!todo) return
 
     todo.completed = !todo.completed
-    renderAll()
+    await uptadeTask(todo.id, todo)
+    loadTasks()
 }
 
 function handleEditTodo(event) {
@@ -112,6 +113,10 @@ form.addEventListener('submit', async (event) => {
 
     if (editingTodo) {
         editingTodo.description = formData.get('task')
+        await uptadeTask(editingTodo.id, editingTodo)
+        loadTasks()
+        toggleForm()
+        resetFormState()
     } else {
         await createTask(description)
         loadTasks()
