@@ -1,4 +1,4 @@
-import { getTasks, createTask, uptadeTask } from "./tasks-api"
+import { getTasks, createTask, uptadeTask, deleteTask } from "./tasks-api"
 
 let todos = []
 
@@ -40,25 +40,29 @@ function handleCancelForm() {
     form.reset()
 }
 
-function handleDeleteTodo() {
+async function handleDeleteTodo() {
     if (editingTodo) {
-        todos = todos.filter(t => t !== editingTodo)
+        await deleteTask(editingTodo.id)
+        resetFormState()
+        toggleForm()
+        loadTasks()
     }
-    resetFormState()
-    toggleForm()
-    renderAll()
 }
 
-function handleClearCompleted() {
+async function handleClearCompleted() {
     menu.open = false
-    todos = todos.filter(t => !t.completed)
-    renderAll()
+    await Promise.all(todos.filter(t => t.completed).map(t => {
+        return deleteTask(t.id)
+    }))
+    loadTasks()
 }
 
-function handleClearAll() {
+async function handleClearAll() {
     menu.open = false
-    todos = []
-    todosList.innerHTML = ''
+    await Promise.all(todos.map(t => {
+        return deleteTask(t.id)
+    }))
+    loadTasks()
 }
 
 function findTodoFromEvent(event) {

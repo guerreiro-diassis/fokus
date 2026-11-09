@@ -33,3 +33,9 @@ export async function uptadeTask(id, data) {
     return respose.json()
     
 }
+
+export async function deleteTask(id) {
+    return fetch(`${API_URL}/${id}`, {
+        method: 'DELETE'
+    })
+}
