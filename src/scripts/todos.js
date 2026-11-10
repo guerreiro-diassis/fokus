@@ -3,11 +3,15 @@ import { getTasks, createTask, uptadeTask, deleteTask } from "./tasks-api"
 let todos = []
 
 function loadTasks() {
+    buttonAddTask.hidden = true
     getTasks()
     .then(data => {
         console.table(data)
         todos = data
         renderAll()
+    })
+    .finally(() => {
+        buttonAddTask.hidden = false
     })
 }
 
