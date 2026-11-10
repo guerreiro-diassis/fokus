@@ -1,8 +1,14 @@
 const API_URL = 'http://localhost:4242/tasks'
 
 export async function getTasks() {
-    const respose = await fetch(API_URL)
-    return respose.json()
+    try {
+        const respose = await fetch(API_URL)
+        return respose.json()        
+    } catch (error) {
+        alert('Ops... algo deu errado!')
+        return []
+    }
+
 }
 
 export async function createTask(description) {
