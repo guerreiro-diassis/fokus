@@ -8,6 +8,15 @@ function loadTasks() {
     .then(data => {
         console.table(data)
         todos = data
+        
+        const activeTodo = todos.find(t => t.id === activeTodoId && !t.completed)
+        if (!activeTodo) {
+            activeTodoId = null
+            currentTaskName.textContent = 'Nenhuma tarefa selecionada'
+        } else {
+            currentTaskName.textContent = activeTodo.description
+        }
+        
         renderAll()
     })
     .finally(() => {
@@ -23,6 +32,7 @@ const todosList = document.querySelector('.task-list')
 const menu = document.querySelector('.task-menu')
 const buttonAddTask = document.querySelector('.add-task-button')
 const buttonDeleteTask = document.querySelector('#btn-delete')
+const currentTaskName = document.querySelector('.current-task__name')
 
 let editingTodo = null
 
@@ -36,6 +46,17 @@ function resetFormState() {
     formLabel.textContent = 'Adicionando tarefa'
     editingTodo = null
     buttonDeleteTask.hidden = true
+}
+
+let activeTodoId = null
+
+function handleSelectTodo(event) {
+    const todo = findTodoFromEvent(event)
+    if (!todo || todo.completed) return
+
+    activeTodoId = todo.id
+    currentTaskName.textContent = todo.description
+    renderAll()
 }
 
 function handleCancelForm() {
@@ -104,6 +125,7 @@ const actions = {
     'clear-all': handleClearAll,
     'toggle-status': handleToggleStatus,
     'edit-todo': handleEditTodo,
+    'select-todo': handleSelectTodo,
 }
 
 taskBoard.addEventListener('click', (event) => {
@@ -137,6 +159,13 @@ function renderTodoListItem(todo) {
     const listItem = document.createElement('li')
 
     listItem.classList.add('task-list__item')
+
+    listItem.dataset.action = 'select-todo'
+    listItem.dataset.todoId = todo.id
+
+    if (todo.id === activeTodoId) {
+        listItem.classList.add('task-list__item--active')
+    }
 
     if (todo.completed) {
         listItem.classList.add('task-list__item--complete')
